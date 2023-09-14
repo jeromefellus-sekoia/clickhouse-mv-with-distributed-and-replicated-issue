@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<yandex>
+    <profiles>
+        <user>
+            <load_balancing>first_or_random</load_balancing>
+            <allow_experimental_database_replicated replace="true">1</allow_experimental_database_replicated>
+        </user>
+    </profiles>
+
+    <users>
+        <!-- remove default account that doesn't have any password -->
+        <default remove="true"/>
+
+        <user>
+            <password from_env="CLICKHOUSE_PASSWORD"/>
+            <profile>user</profile>
+            <quota>default</quota>
+        </user>
+
+        <interserver>
+            <password from_env="INTERSERVER_PASSWORD"/>
+            <profile>user</profile>
+            <quota>default</quota>
+        </interserver>
+    </users>
+</yandex>

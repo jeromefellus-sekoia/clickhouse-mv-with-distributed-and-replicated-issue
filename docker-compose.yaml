@@ -1,0 +1,130 @@
+version: "3.8"
+
+networks:
+  clickhouse:
+  zookeeper:
+
+
+volumes:
+  clickhouse1:
+  clickhouse2:
+  clickhouse3:
+  clickhouse101:
+  clickhouse102:
+  clickhouse103:
+
+
+services:
+  main:
+    image: python:3.11
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: bash -c 'pip install -r requirements.txt >/dev/null 2>&1; python3 main.py'
+    environment:
+      - USE_DISTRIBUTED=${USE_DISTRIBUTED}
+    networks:
+      - clickhouse
+
+  clickhouse1:
+    image: clickhouse/clickhouse-server:latest-alpine
+    hostname: clickhouse1
+    environment:
+      CLICKHOUSE_PASSWORD: plop
+      INTERSERVER_PASSWORD: superprotected_password
+      SHARD: 1
+      REPLICA: clickhouse1
+    volumes:
+      - clickhouse1:/var/lib/clickhouse
+      - ./conf/users/:/etc/clickhouse-server/users.d/
+      - ./conf/config/:/etc/clickhouse-server/config.d/
+    networks:
+      - clickhouse
+      - zookeeper
+  clickhouse2:
+    image: clickhouse/clickhouse-server:latest-alpine
+    hostname: clickhouse2
+    environment:
+      CLICKHOUSE_PASSWORD: plop
+      INTERSERVER_PASSWORD: superprotected_password
+      SHARD: 2
+      REPLICA: clickhouse2
+    volumes:
+      - clickhouse2:/var/lib/clickhouse
+      - ./conf/users/:/etc/clickhouse-server/users.d/
+      - ./conf/config/:/etc/clickhouse-server/config.d/
+    networks:
+      - clickhouse
+      - zookeeper
+  clickhouse3:
+    image: clickhouse/clickhouse-server:latest-alpine
+    hostname: clickhouse3
+    environment:
+      CLICKHOUSE_PASSWORD: plop
+      INTERSERVER_PASSWORD: superprotected_password
+      SHARD: 3
+      REPLICA: clickhouse3
+    volumes:
+      - clickhouse3:/var/lib/clickhouse
+      - ./conf/users/:/etc/clickhouse-server/users.d/
+      - ./conf/config/:/etc/clickhouse-server/config.d/
+    networks:
+      - clickhouse
+      - zookeeper
+
+  # replica servers are named 10x
+  clickhouse101:
+    image: clickhouse/clickhouse-server:latest-alpine
+    hostname: clickhouse101
+    environment:
+      CLICKHOUSE_PASSWORD: plop
+      INTERSERVER_PASSWORD: superprotected_password
+      SHARD: 1
+      REPLICA: clickhouse101
+    volumes:
+      - clickhouse101:/var/lib/clickhouse
+      - ./conf/users/:/etc/clickhouse-server/users.d/
+      - ./conf/config/:/etc/clickhouse-server/config.d/
+    networks:
+      - clickhouse
+      - zookeeper
+  clickhouse102:
+    image: clickhouse/clickhouse-server:latest-alpine
+    hostname: clickhouse102
+    environment:
+      CLICKHOUSE_PASSWORD: plop
+      INTERSERVER_PASSWORD: superprotected_password
+      SHARD: 2
+      REPLICA: clickhouse102
+    volumes:
+      - clickhouse102:/var/lib/clickhouse
+      - ./conf/users/:/etc/clickhouse-server/users.d/
+      - ./conf/config/:/etc/clickhouse-server/config.d/
+    networks:
+      - clickhouse
+      - zookeeper
+  clickhouse103:
+    image: clickhouse/clickhouse-server:latest-alpine
+    hostname: clickhouse103
+    environment:
+      CLICKHOUSE_PASSWORD: plop
+      INTERSERVER_PASSWORD: superprotected_password
+      SHARD: 3
+      REPLICA: clickhouse103
+    volumes:
+      - clickhouse103:/var/lib/clickhouse
+      - ./conf/users/:/etc/clickhouse-server/users.d/
+      - ./conf/config/:/etc/clickhouse-server/config.d/
+    networks:
+      - clickhouse
+      - zookeeper
+
+  zookeeper:
+    image: zookeeper
+    restart: always
+    hostname: zookeeper
+    networks:
+      - zookeeper
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zookeeper:2888:3888;2181

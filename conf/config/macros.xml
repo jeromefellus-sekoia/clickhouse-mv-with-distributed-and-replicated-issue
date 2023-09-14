@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<yandex>
+    <macros>
+        <shard from_env="SHARD"/>
+        <replica from_env="REPLICA"/>
+    </macros>
+</yandex>

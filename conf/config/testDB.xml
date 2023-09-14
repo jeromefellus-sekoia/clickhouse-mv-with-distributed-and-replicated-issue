@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<yandex>
+<remote_servers>
+    <mycluster>
+        <shard>
+            <replica>
+                <user>interserver</user>
+                <password from_env="INTERSERVER_PASSWORD"/>
+                <host>clickhouse1</host>
+                <port>9000</port>
+            </replica>
+            <replica>
+                <user>interserver</user>
+                <password from_env="INTERSERVER_PASSWORD"/>
+                <host>clickhouse101</host>
+                <port>9000</port>
+            </replica>
+        </shard>
+        <shard>
+            <replica>
+                <user>interserver</user>
+                <password from_env="INTERSERVER_PASSWORD"/>
+                <host>clickhouse2</host>
+                <port>9000</port>
+            </replica>
+            <replica>
+                <user>interserver</user>
+                <password from_env="INTERSERVER_PASSWORD"/>
+                <host>clickhouse102</host>
+                <port>9000</port>
+            </replica>
+        </shard>
+        <shard>
+            <replica>
+                <user>interserver</user>
+                <password from_env="INTERSERVER_PASSWORD"/>
+                <host>clickhouse3</host>
+                <port>9000</port>
+            </replica>
+            <replica>
+                <user>interserver</user>
+                <password from_env="INTERSERVER_PASSWORD"/>
+                <host>clickhouse103</host>
+                <port>9000</port>
+            </replica>
+        </shard>
+    </mycluster>
+</remote_servers>
+</yandex>
