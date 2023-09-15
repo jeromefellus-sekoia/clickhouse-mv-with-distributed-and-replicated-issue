@@ -8,7 +8,7 @@ https://github.com/ClickHouse/ClickHouse/issues/54643
 
 ----
 
-This is a minimal docker-compose stack to reproduce a weird behavior/"bug" we observed when combining
+This is a minimal docker-compose stack to reproduce a ~~weird behavior/"bug"~~ we observed when combining
 Clickhouse `Distributed` tables to `Replicated...` tables for which a `Materialized View` that compute some basic aggregates (*e.g.*, sums) is setup.
 
 1. INSERTING to the `Distributed` table, then SELECTing the overall counts from the input table and the MV's aggregated sums, we see that the counts are completely broken :
