@@ -22,8 +22,3 @@ Clickhouse `Distributed` tables to `Replicated...` tables for which a `Materiali
 ````
 
 As you can see in `main.py` the only change between `./it_fails.sh` and `./it_works.sh` is in the `USE_DISTRIBUTED` flag that either choose the Distributed table as the INSERT point or a randomly picked node's local  `ReplicatedAggregatingMergeTree` table.
-
-
-> It is still unclear to us if it's a bug, a feature, a bad configuration from our reproduction example or a misuse of Clickhouse engines.
-
-Thanks for your help in solving this issue !
